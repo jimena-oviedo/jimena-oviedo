@@ -9,7 +9,7 @@ export function WorkshopPage() {
         <figure key={photo} className="basis-1/3">
           <img
             className="block h-full w-full rounded-lg object-cover object-center"
-            src={`https://picsum.photos/seed/${photo}/300/200?blur`}
+            src={`https://picsum.photos/seed/${photo}/300/250?blur`}
           />
         </figure>
       ))}
