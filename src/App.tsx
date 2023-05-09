@@ -10,7 +10,9 @@ export function App() {
     <Main>
       <Header />
       <Nav />
-      <Outlet />
+      <div className="py-6">
+        <Outlet />
+      </div>
       <Footer />
     </Main>
   );
