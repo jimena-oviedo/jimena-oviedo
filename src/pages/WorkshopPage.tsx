@@ -4,7 +4,7 @@ const PHOTOS_STUB = [
 
 export function WorkshopPage() {
   return (
-    <section className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {PHOTOS_STUB.map((photo) => (
         <figure key={photo} className="basis-1/3">
           <img

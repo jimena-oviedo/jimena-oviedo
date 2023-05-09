@@ -91,15 +91,15 @@ interface Props {
 
 function Project({ project }: Props) {
   return (
-    <article className="flex">
-      <figure className="pr-6 basis-1/2 lg:basis-3/5 flex-grow-1 flex-shrink-0">
+    <article className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6">
+      <figure className="sm:basis-1/2 lg:basis-7/12 flex-grow-1 flex-shrink-0">
         <img
           className="block h-full w-full rounded-lg object-cover object-center"
           src={`https://picsum.photos/seed/${project.title}/300/180?blur`}
         />
       </figure>
       <aside>
-        <h2 className="font-sans text-lg pb-1">
+        <h2 className="font-sans text-lg lg:text-xl pb-1">
           {project.title} — {project.job}
         </h2>
         <p>Costume designer: {project.costumeDesigner}</p>
