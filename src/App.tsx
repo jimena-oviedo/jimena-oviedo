@@ -1,11 +1,17 @@
-import "./App.css";
+import { Outlet } from "react-router-dom";
 
-function App() {
+import { Footer } from "./layout/Footer";
+import { Header } from "./layout/Header";
+import { Main } from "./layout/Main";
+import { Nav } from "./layout/Nav";
+
+export function App() {
   return (
-    <>
-      <h1>Jimena Oviedo</h1>
-    </>
+    <Main>
+      <Header />
+      <Nav />
+      <Outlet />
+      <Footer />
+    </Main>
   );
 }
-
-export default App;
