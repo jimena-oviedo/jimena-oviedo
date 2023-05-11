@@ -13,7 +13,7 @@ interface LightboxImageProps {
 function LightboxImage({ photo }: LightboxImageProps) {
   const [open, setOpen] = useState(false);
 
-  const slide = (ph: number) => `https://picsum.photos/seed/${ph}/800/600?blur`;
+  const slide = (ph: number) => `https://picsum.photos/seed/${ph}/800/600`;
   const slides = useMemo(() => {
     return [
       { src: slide(photo) },
@@ -26,12 +26,12 @@ function LightboxImage({ photo }: LightboxImageProps) {
   return (
     <>
       <figure
-        className="basis-1/3 cursor-pointer relative max-w-xs overflow-hidden bg-cover bg-no-repeat"
+        className="basis-1/3 cursor-pointer relative max-w-xs overflow-hidden bg-cover bg-no-repeat aspect-square"
         onClick={() => setOpen(true)}
       >
         <img
           className="block h-full w-full object-cover object-center"
-          src={`https://picsum.photos/seed/${photo}/300/250?blur`}
+          src={`https://picsum.photos/seed/${photo}/300/250`}
         />
         <div className="absolute bottom-0 left-0 h-full w-full bg-black bg-opacity-20 overflow-hidden opacity-0 hover:opacity-100"></div>
         {slides.length > 1 && (
@@ -43,7 +43,7 @@ function LightboxImage({ photo }: LightboxImageProps) {
         close={() => setOpen(false)}
         carousel={{ finite: true }}
         controller={{ closeOnBackdropClick: true }}
-        animation={{ swipe: 250 }}
+        animation={{ swipe: 300 }}
         slides={slides}
       />
     </>

@@ -1,4 +1,7 @@
+import { useMemo } from "react";
 import { FiYoutube } from "react-icons/fi";
+import Lightbox from "yet-another-react-lightbox";
+import Inline from "yet-another-react-lightbox/plugins/inline";
 
 interface ProjectInfo {
   title: string;
@@ -89,15 +92,37 @@ interface Props {
   project: ProjectInfo;
 }
 
+function ProjectImage({ project }: Props) {
+  const slide = (ph: string) => `https://picsum.photos/seed/${ph}/800/450`;
+  const slides = useMemo(() => {
+    return [
+      { src: slide(project.title) },
+      ...Array.from({ length: Math.floor(Math.random() * 4) }, () => ({
+        src: slide(project.title + Math.random()),
+      })),
+    ];
+  }, [project.title]);
+
+  return (
+    <div className="sm:basis-1/2 lg:basis-7/12 flex-grow-1 flex-shrink-0">
+      <Lightbox
+        plugins={[Inline]}
+        animation={{ swipe: 300 }}
+        styles={{ container: { padding: 0 } }}
+        inline={{
+          className: "block h-full w-full aspect-video",
+        }}
+        carousel={{ padding: 0, imageFit: "cover" }}
+        slides={slides}
+      />
+    </div>
+  );
+}
+
 function Project({ project }: Props) {
   return (
     <article className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8">
-      <figure className="sm:basis-1/2 lg:basis-7/12 flex-grow-1 flex-shrink-0">
-        <img
-          className="block h-full w-full object-cover object-center"
-          src={`https://picsum.photos/seed/${project.title}/300/180?blur`}
-        />
-      </figure>
+      <ProjectImage project={project} />
       <aside className="mt-1 sm:mt-1 lg:mt-3">
         <h2 className="font-sans text-lg lg:text-xl pb-1 lg:pb-2 font-bold leading-normal">
           {project.title} — {project.job}
