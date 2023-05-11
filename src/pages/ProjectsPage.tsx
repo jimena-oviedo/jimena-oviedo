@@ -91,32 +91,34 @@ interface Props {
 
 function Project({ project }: Props) {
   return (
-    <article className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6">
+    <article className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8">
       <figure className="sm:basis-1/2 lg:basis-7/12 flex-grow-1 flex-shrink-0">
         <img
-          className="block h-full w-full rounded-lg object-cover object-center"
+          className="block h-full w-full object-cover object-center"
           src={`https://picsum.photos/seed/${project.title}/300/180?blur`}
         />
       </figure>
-      <aside>
-        <h2 className="font-sans text-lg lg:text-xl pb-1">
+      <aside className="mt-1 sm:mt-1 lg:mt-3">
+        <h2 className="font-sans text-lg lg:text-xl pb-1 lg:pb-2 font-bold leading-normal">
           {project.title} — {project.job}
         </h2>
-        <p>Costume designer: {project.costumeDesigner}</p>
-        <p>Direction: {project.director}</p>
-        <p>Production: {project.production}</p>
-        <p>Distribution: {project.production}</p>
-        <p>
-          <FiYoutube className="inline" />{" "}
-          <a
-            className="hover:underline"
-            href={project.trailerYouTubeLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Trailer
-          </a>
-        </p>
+        <div className="text-gray-600 text-sm lg:text-base leading-normal">
+          <p>Costume designer: {project.costumeDesigner}</p>
+          <p>Direction: {project.director}</p>
+          <p>Production: {project.production}</p>
+          <p>Distribution: {project.production}</p>
+          <p>
+            <FiYoutube className="inline" />{" "}
+            <a
+              className="hover:underline"
+              href={project.trailerYouTubeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Trailer
+            </a>
+          </p>
+        </div>
       </aside>
     </article>
   );
@@ -124,7 +126,7 @@ function Project({ project }: Props) {
 
 export function ProjectsPage() {
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col gap-14">
       {PROJECTS_STUB.map((project) => (
         <Project project={project} />
       ))}

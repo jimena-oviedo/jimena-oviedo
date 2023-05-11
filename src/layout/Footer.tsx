@@ -1,13 +1,15 @@
 import { FiMail, FiPhone } from "react-icons/fi";
 
 const TELEPHONE = "+49 159 03125878";
-const EMAIL = "jimeoa@gmail.com";
+const EMAIL = "jimeoa@hotmail.com";
 
 export function Footer() {
   return (
-    <footer className="text-center pt-6 pb-48">
-      <p className="font-sans text-2xl leading-loose">Imprint</p>
-      <address className="font-serif not-italic">
+    <footer className="text-center pt-20 pb-36">
+      <p className="font-sans text-lg lg:text-xl font-bold leading-loose pb-1">
+        Imprint
+      </p>
+      <address className="font-serif not-italic text-gray-600 text-sm lg:text-base leading-normal">
         Jimena Oviedo Aucejo
         <br />
         Wilhelmsaue 19

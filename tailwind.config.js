@@ -4,8 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Inter"', "sans-serif"],
-        serif: ['"Noto Serif"', "serif"],
+        sans: ['"Figtree"', "sans-serif"],
+        serif: ['"Figtree"', "serif"],
+        display: ['"Playfair Display"', "sans-serif"],
+        subdisplay: ['"Figtree"', "sans-serif"],
       },
       container: {
         screens: {

@@ -8,8 +8,8 @@ import { Nav } from "./layout/Nav";
 export function App() {
   return (
     <Main>
-      <Header />
       <Nav />
+      <Header />
       <div className="py-6">
         <Outlet />
       </div>

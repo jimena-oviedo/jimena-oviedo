@@ -8,7 +8,7 @@ export function WorkshopPage() {
       {PHOTOS_STUB.map((photo) => (
         <figure key={photo} className="basis-1/3">
           <img
-            className="block h-full w-full rounded-lg object-cover object-center"
+            className="block h-full w-full object-cover object-center"
             src={`https://picsum.photos/seed/${photo}/300/250?blur`}
           />
         </figure>
