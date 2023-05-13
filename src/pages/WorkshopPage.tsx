@@ -86,8 +86,9 @@ function LightboxImage({ slider }: LightboxImageProps) {
 }
 
 export function WorkshopPage() {
-  const { data, loading } = useQuery(WorkshopGalleryQueryDocument);
+  const { data, error, loading } = useQuery(WorkshopGalleryQueryDocument);
   if (loading) return <Loading />;
+  if (error) return <pre className="text-red-600">{JSON.stringify(error, null, 2)}</pre>;
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {data?.gallery?.photoSlidersCollection?.items.map((slider) =>

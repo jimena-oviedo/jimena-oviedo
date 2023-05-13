@@ -123,8 +123,9 @@ function ProjectCard({ project }: ProjectCardProps) {
 }
 
 export function ProjectsPage() {
-  const { data, loading } = useQuery(ProjectListEntryQueryDocument);
+  const { data, error, loading } = useQuery(ProjectListEntryQueryDocument);
   if (loading) return <Loading />;
+  if (error) return <pre className="text-red-600">{JSON.stringify(error, null, 2)}</pre>;
   return (
     <section className="flex flex-col gap-14">
       {data?.projectList?.projectsCollection?.items.map((project) =>
