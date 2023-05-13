@@ -28,5 +28,6 @@ export function slidesFromCollection(
     width: slide.width ?? undefined,
     height: slide.height ?? undefined,
     alt: slide.title,
+    imageFit: "cover",
   }));
 }
