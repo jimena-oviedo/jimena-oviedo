@@ -39,12 +39,16 @@ interface LightboxImageProps {
   slider: { slidesCollection?: AssetCollection | null };
 }
 
+// https://www.contentful.com/developers/docs/references/images-api
+const IMG_THUMBNAIL_PARAMS = "?w=300&h=300&fit=fill&q=60";
+const IMG_CAROUSEL_PARAMS = "?fm=jpg&q=80";
+
 function LightboxImage({ slider }: LightboxImageProps) {
   const [open, setOpen] = useState(false);
   const first = slider.slidesCollection?.items?.[0];
 
   const slides = useMemo(() => {
-    return slidesFromCollection(slider?.slidesCollection);
+    return slidesFromCollection(slider?.slidesCollection, IMG_CAROUSEL_PARAMS);
   }, [slider]);
 
   if (!first || !first.url) return null;
@@ -56,7 +60,7 @@ function LightboxImage({ slider }: LightboxImageProps) {
       >
         <img
           className="block h-full w-full object-cover object-center"
-          src={first.url}
+          src={`${first.url}${IMG_THUMBNAIL_PARAMS}`}
           width={first.width ?? undefined}
           height={first.height ?? undefined}
         />

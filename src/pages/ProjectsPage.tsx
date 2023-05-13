@@ -42,9 +42,12 @@ interface ProjectImageProps {
   collection: AssetCollection | null | undefined;
 }
 
+// https://www.contentful.com/developers/docs/references/images-api
+const IMG_PARAMS = "?fit=pad&q=70&fm=jpg";
+
 function ProjectImage({ collection }: ProjectImageProps) {
   const slides = useMemo(() => {
-    return slidesFromCollection(collection);
+    return slidesFromCollection(collection, IMG_PARAMS);
   }, [collection]);
 
   return (
