@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ClientContextProvider } from "./api/Client";
 
 import { App } from "./App";
 import "./index.css";
@@ -32,6 +33,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ClientContextProvider>
+      <RouterProvider router={router} />
+    </ClientContextProvider>
   </React.StrictMode>
 );

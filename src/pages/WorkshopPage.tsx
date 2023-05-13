@@ -1,28 +1,68 @@
+import { gql, useQuery } from "@apollo/client";
 import { useMemo, useState } from "react";
 import { HiSquare2Stack } from "react-icons/hi2";
-import { Lightbox } from "yet-another-react-lightbox";
+import { Lightbox, SlideImage } from "yet-another-react-lightbox";
+import {
+  WorkshopGalleryQueryDocument,
+  WorkshopPhotoGroup,
+} from "../gql/graphql";
 
-const PHOTOS_STUB = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-];
+gql`
+  query workshopGalleryQuery {
+    gallery(id: "4mO5GAdPRGISUXIGw1UwXY") {
+      sys {
+        id
+      }
+      title
+      photoSlidersCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          slidesCollection {
+            limit
+            skip
+            total
+            items {
+              title
+              url
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+type DeepOptional<T> = {
+  [K in keyof T]?: DeepOptional<T[K]> | null;
+};
 
 interface LightboxImageProps {
-  photo: number;
+  slider: DeepOptional<WorkshopPhotoGroup>;
 }
 
-function LightboxImage({ photo }: LightboxImageProps) {
+function LightboxImage({ slider }: LightboxImageProps) {
   const [open, setOpen] = useState(false);
+  const first = slider.slidesCollection?.items?.[0];
 
-  const slide = (ph: number) => `https://picsum.photos/seed/${ph}/800/600`;
   const slides = useMemo(() => {
-    return [
-      { src: slide(photo) },
-      ...Array.from({ length: Math.floor(Math.random() * 2) }, () => ({
-        src: slide(photo + Math.random()),
-      })),
-    ];
-  }, [photo]);
+    const items =
+      slider.slidesCollection?.items?.filter(
+        (slide): slide is { url: string; width?: number; height?: number } =>
+          Boolean(slide && slide.url)
+      ) ?? [];
+    return items.map<SlideImage>((slide) => ({
+      src: slide.url,
+      width: slide.width ?? undefined,
+      height: slide.height ?? undefined,
+    }));
+  }, [slider]);
 
+  if (!first || !first.url) return null;
   return (
     <>
       <figure
@@ -31,7 +71,9 @@ function LightboxImage({ photo }: LightboxImageProps) {
       >
         <img
           className="block h-full w-full object-cover object-center"
-          src={`https://picsum.photos/seed/${photo}/300/250`}
+          src={first.url}
+          width={first.width ?? undefined}
+          height={first.height ?? undefined}
         />
         <div className="absolute bottom-0 left-0 h-full w-full bg-black bg-opacity-20 overflow-hidden opacity-0 hover:opacity-100"></div>
         {slides.length > 1 && (
@@ -51,11 +93,12 @@ function LightboxImage({ photo }: LightboxImageProps) {
 }
 
 export function WorkshopPage() {
+  const { data } = useQuery(WorkshopGalleryQueryDocument);
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {PHOTOS_STUB.map((photo) => (
-        <LightboxImage key={photo} photo={photo} />
-      ))}
+      {data?.gallery?.photoSlidersCollection?.items.map((slider) =>
+        slider ? <LightboxImage key={slider.sys.id} slider={slider} /> : null
+      )}
     </section>
   );
 }
