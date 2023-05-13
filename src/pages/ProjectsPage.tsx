@@ -5,6 +5,7 @@ import Lightbox from "yet-another-react-lightbox";
 import Inline from "yet-another-react-lightbox/plugins/inline";
 import { Project, ProjectListEntryQueryDocument } from "../gql/graphql";
 import { slidesFromCollection, AssetCollection } from "../utils";
+import { Loading } from "./components/Loading";
 
 gql`
   query projectListEntryQuery {
@@ -122,7 +123,8 @@ function ProjectCard({ project }: ProjectCardProps) {
 }
 
 export function ProjectsPage() {
-  const { data } = useQuery(ProjectListEntryQueryDocument);
+  const { data, loading } = useQuery(ProjectListEntryQueryDocument);
+  if (loading) return <Loading />;
   return (
     <section className="flex flex-col gap-14">
       {data?.projectList?.projectsCollection?.items.map((project) =>

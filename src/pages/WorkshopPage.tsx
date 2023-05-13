@@ -4,6 +4,7 @@ import { HiSquare2Stack } from "react-icons/hi2";
 import { Lightbox } from "yet-another-react-lightbox";
 import { WorkshopGalleryQueryDocument } from "../gql/graphql";
 import { AssetCollection, slidesFromCollection } from "../utils";
+import { Loading } from "./components/Loading";
 
 gql`
   query workshopGalleryQuery {
@@ -85,7 +86,8 @@ function LightboxImage({ slider }: LightboxImageProps) {
 }
 
 export function WorkshopPage() {
-  const { data } = useQuery(WorkshopGalleryQueryDocument);
+  const { data, loading } = useQuery(WorkshopGalleryQueryDocument);
+  if (loading) return <Loading />;
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {data?.gallery?.photoSlidersCollection?.items.map((slider) =>
