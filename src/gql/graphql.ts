@@ -465,6 +465,7 @@ export type Project = Entry & {
   production: Maybe<Scalars["String"]>;
   sys: Sys;
   title: Maybe<Scalars["String"]>;
+  year: Maybe<Scalars["Int"]>;
   youTubeTrailerLink: Maybe<Scalars["String"]>;
 };
 
@@ -506,6 +507,11 @@ export type ProjectProductionArgs = {
 
 /** Un proyecto que aparecerá en la página Projects. [See type definition](https://app.contentful.com/spaces/f3vrz52yvz69/content_types/project) */
 export type ProjectTitleArgs = {
+  locale: InputMaybe<Scalars["String"]>;
+};
+
+/** Un proyecto que aparecerá en la página Projects. [See type definition](https://app.contentful.com/spaces/f3vrz52yvz69/content_types/project) */
+export type ProjectYearArgs = {
   locale: InputMaybe<Scalars["String"]>;
 };
 
@@ -571,6 +577,15 @@ export type ProjectFilter = {
   title_not: InputMaybe<Scalars["String"]>;
   title_not_contains: InputMaybe<Scalars["String"]>;
   title_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  year: InputMaybe<Scalars["Int"]>;
+  year_exists: InputMaybe<Scalars["Boolean"]>;
+  year_gt: InputMaybe<Scalars["Int"]>;
+  year_gte: InputMaybe<Scalars["Int"]>;
+  year_in: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  year_lt: InputMaybe<Scalars["Int"]>;
+  year_lte: InputMaybe<Scalars["Int"]>;
+  year_not: InputMaybe<Scalars["Int"]>;
+  year_not_in: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
   youTubeTrailerLink: InputMaybe<Scalars["String"]>;
   youTubeTrailerLink_contains: InputMaybe<Scalars["String"]>;
   youTubeTrailerLink_exists: InputMaybe<Scalars["Boolean"]>;
@@ -583,6 +598,7 @@ export type ProjectFilter = {
 export type ProjectLinkingCollections = {
   __typename?: "ProjectLinkingCollections";
   entryCollection: Maybe<EntryCollection>;
+  projectListCollection: Maybe<ProjectListCollection>;
 };
 
 export type ProjectLinkingCollectionsEntryCollectionArgs = {
@@ -590,6 +606,98 @@ export type ProjectLinkingCollectionsEntryCollectionArgs = {
   locale: InputMaybe<Scalars["String"]>;
   preview: InputMaybe<Scalars["Boolean"]>;
   skip?: InputMaybe<Scalars["Int"]>;
+};
+
+export type ProjectLinkingCollectionsProjectListCollectionArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  locale: InputMaybe<Scalars["String"]>;
+  preview: InputMaybe<Scalars["Boolean"]>;
+  skip?: InputMaybe<Scalars["Int"]>;
+};
+
+/** Los proyectos en el orden en el que salen en la página web. [See type definition](https://app.contentful.com/spaces/f3vrz52yvz69/content_types/projectList) */
+export type ProjectList = Entry & {
+  __typename?: "ProjectList";
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom: Maybe<ProjectListLinkingCollections>;
+  projectsCollection: Maybe<ProjectListProjectsCollection>;
+  sys: Sys;
+  title: Maybe<Scalars["String"]>;
+};
+
+/** Los proyectos en el orden en el que salen en la página web. [See type definition](https://app.contentful.com/spaces/f3vrz52yvz69/content_types/projectList) */
+export type ProjectListLinkedFromArgs = {
+  allowedLocales: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+/** Los proyectos en el orden en el que salen en la página web. [See type definition](https://app.contentful.com/spaces/f3vrz52yvz69/content_types/projectList) */
+export type ProjectListProjectsCollectionArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  locale: InputMaybe<Scalars["String"]>;
+  preview: InputMaybe<Scalars["Boolean"]>;
+  skip?: InputMaybe<Scalars["Int"]>;
+};
+
+/** Los proyectos en el orden en el que salen en la página web. [See type definition](https://app.contentful.com/spaces/f3vrz52yvz69/content_types/projectList) */
+export type ProjectListTitleArgs = {
+  locale: InputMaybe<Scalars["String"]>;
+};
+
+export type ProjectListCollection = {
+  __typename?: "ProjectListCollection";
+  items: Array<Maybe<ProjectList>>;
+  limit: Scalars["Int"];
+  skip: Scalars["Int"];
+  total: Scalars["Int"];
+};
+
+export type ProjectListFilter = {
+  AND: InputMaybe<Array<InputMaybe<ProjectListFilter>>>;
+  OR: InputMaybe<Array<InputMaybe<ProjectListFilter>>>;
+  contentfulMetadata: InputMaybe<ContentfulMetadataFilter>;
+  projects: InputMaybe<CfProjectNestedFilter>;
+  projectsCollection_exists: InputMaybe<Scalars["Boolean"]>;
+  sys: InputMaybe<SysFilter>;
+  title: InputMaybe<Scalars["String"]>;
+  title_contains: InputMaybe<Scalars["String"]>;
+  title_exists: InputMaybe<Scalars["Boolean"]>;
+  title_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  title_not: InputMaybe<Scalars["String"]>;
+  title_not_contains: InputMaybe<Scalars["String"]>;
+  title_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type ProjectListLinkingCollections = {
+  __typename?: "ProjectListLinkingCollections";
+  entryCollection: Maybe<EntryCollection>;
+};
+
+export type ProjectListLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  locale: InputMaybe<Scalars["String"]>;
+  preview: InputMaybe<Scalars["Boolean"]>;
+  skip?: InputMaybe<Scalars["Int"]>;
+};
+
+export enum ProjectListOrder {
+  SysFirstPublishedAtAsc = "sys_firstPublishedAt_ASC",
+  SysFirstPublishedAtDesc = "sys_firstPublishedAt_DESC",
+  SysIdAsc = "sys_id_ASC",
+  SysIdDesc = "sys_id_DESC",
+  SysPublishedAtAsc = "sys_publishedAt_ASC",
+  SysPublishedAtDesc = "sys_publishedAt_DESC",
+  SysPublishedVersionAsc = "sys_publishedVersion_ASC",
+  SysPublishedVersionDesc = "sys_publishedVersion_DESC",
+  TitleAsc = "title_ASC",
+  TitleDesc = "title_DESC",
+}
+
+export type ProjectListProjectsCollection = {
+  __typename?: "ProjectListProjectsCollection";
+  items: Array<Maybe<Project>>;
+  limit: Scalars["Int"];
+  skip: Scalars["Int"];
+  total: Scalars["Int"];
 };
 
 export enum ProjectOrder {
@@ -613,6 +721,8 @@ export enum ProjectOrder {
   SysPublishedVersionDesc = "sys_publishedVersion_DESC",
   TitleAsc = "title_ASC",
   TitleDesc = "title_DESC",
+  YearAsc = "year_ASC",
+  YearDesc = "year_DESC",
   YouTubeTrailerLinkAsc = "youTubeTrailerLink_ASC",
   YouTubeTrailerLinkDesc = "youTubeTrailerLink_DESC",
 }
@@ -626,6 +736,8 @@ export type Query = {
   galleryCollection: Maybe<GalleryCollection>;
   project: Maybe<Project>;
   projectCollection: Maybe<ProjectCollection>;
+  projectList: Maybe<ProjectList>;
+  projectListCollection: Maybe<ProjectListCollection>;
   workshopPhotoGroup: Maybe<WorkshopPhotoGroup>;
   workshopPhotoGroupCollection: Maybe<WorkshopPhotoGroupCollection>;
 };
@@ -682,6 +794,21 @@ export type QueryProjectCollectionArgs = {
   preview: InputMaybe<Scalars["Boolean"]>;
   skip?: InputMaybe<Scalars["Int"]>;
   where: InputMaybe<ProjectFilter>;
+};
+
+export type QueryProjectListArgs = {
+  id: Scalars["String"];
+  locale: InputMaybe<Scalars["String"]>;
+  preview: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type QueryProjectListCollectionArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  locale: InputMaybe<Scalars["String"]>;
+  order: InputMaybe<Array<InputMaybe<ProjectListOrder>>>;
+  preview: InputMaybe<Scalars["Boolean"]>;
+  skip?: InputMaybe<Scalars["Int"]>;
+  where: InputMaybe<ProjectListFilter>;
 };
 
 export type QueryWorkshopPhotoGroupArgs = {
@@ -838,6 +965,72 @@ export enum WorkshopPhotoGroupOrder {
   TitleDesc = "title_DESC",
 }
 
+export type CfProjectNestedFilter = {
+  AND: InputMaybe<Array<InputMaybe<CfProjectNestedFilter>>>;
+  OR: InputMaybe<Array<InputMaybe<CfProjectNestedFilter>>>;
+  contentfulMetadata: InputMaybe<ContentfulMetadataFilter>;
+  costumeDesigner: InputMaybe<Scalars["String"]>;
+  costumeDesigner_contains: InputMaybe<Scalars["String"]>;
+  costumeDesigner_exists: InputMaybe<Scalars["Boolean"]>;
+  costumeDesigner_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  costumeDesigner_not: InputMaybe<Scalars["String"]>;
+  costumeDesigner_not_contains: InputMaybe<Scalars["String"]>;
+  costumeDesigner_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  director: InputMaybe<Scalars["String"]>;
+  director_contains: InputMaybe<Scalars["String"]>;
+  director_exists: InputMaybe<Scalars["Boolean"]>;
+  director_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  director_not: InputMaybe<Scalars["String"]>;
+  director_not_contains: InputMaybe<Scalars["String"]>;
+  director_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  distribution: InputMaybe<Scalars["String"]>;
+  distribution_contains: InputMaybe<Scalars["String"]>;
+  distribution_exists: InputMaybe<Scalars["Boolean"]>;
+  distribution_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  distribution_not: InputMaybe<Scalars["String"]>;
+  distribution_not_contains: InputMaybe<Scalars["String"]>;
+  distribution_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  job: InputMaybe<Scalars["String"]>;
+  job_contains: InputMaybe<Scalars["String"]>;
+  job_exists: InputMaybe<Scalars["Boolean"]>;
+  job_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  job_not: InputMaybe<Scalars["String"]>;
+  job_not_contains: InputMaybe<Scalars["String"]>;
+  job_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  photoSlider_exists: InputMaybe<Scalars["Boolean"]>;
+  production: InputMaybe<Scalars["String"]>;
+  production_contains: InputMaybe<Scalars["String"]>;
+  production_exists: InputMaybe<Scalars["Boolean"]>;
+  production_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  production_not: InputMaybe<Scalars["String"]>;
+  production_not_contains: InputMaybe<Scalars["String"]>;
+  production_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  sys: InputMaybe<SysFilter>;
+  title: InputMaybe<Scalars["String"]>;
+  title_contains: InputMaybe<Scalars["String"]>;
+  title_exists: InputMaybe<Scalars["Boolean"]>;
+  title_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  title_not: InputMaybe<Scalars["String"]>;
+  title_not_contains: InputMaybe<Scalars["String"]>;
+  title_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  year: InputMaybe<Scalars["Int"]>;
+  year_exists: InputMaybe<Scalars["Boolean"]>;
+  year_gt: InputMaybe<Scalars["Int"]>;
+  year_gte: InputMaybe<Scalars["Int"]>;
+  year_in: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  year_lt: InputMaybe<Scalars["Int"]>;
+  year_lte: InputMaybe<Scalars["Int"]>;
+  year_not: InputMaybe<Scalars["Int"]>;
+  year_not_in: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+  youTubeTrailerLink: InputMaybe<Scalars["String"]>;
+  youTubeTrailerLink_contains: InputMaybe<Scalars["String"]>;
+  youTubeTrailerLink_exists: InputMaybe<Scalars["Boolean"]>;
+  youTubeTrailerLink_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  youTubeTrailerLink_not: InputMaybe<Scalars["String"]>;
+  youTubeTrailerLink_not_contains: InputMaybe<Scalars["String"]>;
+  youTubeTrailerLink_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
 export type CfWorkshopPhotoGroupNestedFilter = {
   AND: InputMaybe<Array<InputMaybe<CfWorkshopPhotoGroupNestedFilter>>>;
   OR: InputMaybe<Array<InputMaybe<CfWorkshopPhotoGroupNestedFilter>>>;
@@ -853,41 +1046,45 @@ export type CfWorkshopPhotoGroupNestedFilter = {
   title_not_in: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
-export type ProjectCollectionQueryQueryVariables = Exact<{
+export type ProjectListEntryQueryQueryVariables = Exact<{
   [key: string]: never;
 }>;
 
-export type ProjectCollectionQueryQuery = {
+export type ProjectListEntryQueryQuery = {
   __typename?: "Query";
-  projectCollection: {
-    __typename?: "ProjectCollection";
-    items: Array<{
-      __typename?: "Project";
-      title: string | null;
-      job: string | null;
-      costumeDesigner: string | null;
-      director: string | null;
-      production: string | null;
-      distribution: string | null;
-      youTubeTrailerLink: string | null;
-      sys: { __typename?: "Sys"; id: string };
-      photoSlider: {
-        __typename?: "WorkshopPhotoGroup";
-        slidesCollection: {
-          __typename?: "AssetCollection";
-          total: number;
-          skip: number;
-          limit: number;
-          items: Array<{
-            __typename?: "Asset";
-            url: string | null;
-            width: number | null;
-            height: number | null;
-            title: string | null;
-          } | null>;
+  projectList: {
+    __typename?: "ProjectList";
+    sys: { __typename?: "Sys"; id: string };
+    projectsCollection: {
+      __typename?: "ProjectListProjectsCollection";
+      items: Array<{
+        __typename?: "Project";
+        title: string | null;
+        job: string | null;
+        costumeDesigner: string | null;
+        director: string | null;
+        production: string | null;
+        distribution: string | null;
+        youTubeTrailerLink: string | null;
+        sys: { __typename?: "Sys"; id: string };
+        photoSlider: {
+          __typename?: "WorkshopPhotoGroup";
+          slidesCollection: {
+            __typename?: "AssetCollection";
+            total: number;
+            skip: number;
+            limit: number;
+            items: Array<{
+              __typename?: "Asset";
+              url: string | null;
+              width: number | null;
+              height: number | null;
+              title: string | null;
+            } | null>;
+          } | null;
         } | null;
-      } | null;
-    } | null>;
+      } | null>;
+    } | null;
   } | null;
 };
 
@@ -925,116 +1122,170 @@ export type WorkshopGalleryQueryQuery = {
   } | null;
 };
 
-export const ProjectCollectionQueryDocument = {
+export const ProjectListEntryQueryDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "projectCollectionQuery" },
+      name: { kind: "Name", value: "projectListEntryQuery" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "projectCollection" },
+            name: { kind: "Name", value: "projectList" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "StringValue",
+                  value: "4I3FbAncqpeEcqKTQ7o686",
+                  block: false,
+                },
+              },
+            ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
                 {
                   kind: "Field",
-                  name: { kind: "Name", value: "items" },
+                  name: { kind: "Name", value: "sys" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "projectsCollection" },
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "sys" },
+                        name: { kind: "Name", value: "items" },
                         selectionSet: {
                           kind: "SelectionSet",
                           selections: [
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "id" },
-                            },
-                          ],
-                        },
-                      },
-                      { kind: "Field", name: { kind: "Name", value: "title" } },
-                      { kind: "Field", name: { kind: "Name", value: "job" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "costumeDesigner" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "director" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "production" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "distribution" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "youTubeTrailerLink" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "photoSlider" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "slidesCollection" },
+                              name: { kind: "Name", value: "sys" },
                               selectionSet: {
                                 kind: "SelectionSet",
                                 selections: [
                                   {
                                     kind: "Field",
-                                    name: { kind: "Name", value: "total" },
+                                    name: { kind: "Name", value: "id" },
                                   },
+                                ],
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "title" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "job" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "costumeDesigner" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "director" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "production" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "distribution" },
+                            },
+                            {
+                              kind: "Field",
+                              name: {
+                                kind: "Name",
+                                value: "youTubeTrailerLink",
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "photoSlider" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
                                   {
                                     kind: "Field",
-                                    name: { kind: "Name", value: "skip" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "limit" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "items" },
+                                    name: {
+                                      kind: "Name",
+                                      value: "slidesCollection",
+                                    },
                                     selectionSet: {
                                       kind: "SelectionSet",
                                       selections: [
                                         {
                                           kind: "Field",
-                                          name: { kind: "Name", value: "url" },
+                                          name: {
+                                            kind: "Name",
+                                            value: "total",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "skip" },
                                         },
                                         {
                                           kind: "Field",
                                           name: {
                                             kind: "Name",
-                                            value: "width",
+                                            value: "limit",
                                           },
                                         },
                                         {
                                           kind: "Field",
                                           name: {
                                             kind: "Name",
-                                            value: "height",
+                                            value: "items",
                                           },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "title",
+                                          selectionSet: {
+                                            kind: "SelectionSet",
+                                            selections: [
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "url",
+                                                },
+                                              },
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "width",
+                                                },
+                                              },
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "height",
+                                                },
+                                              },
+                                              {
+                                                kind: "Field",
+                                                name: {
+                                                  kind: "Name",
+                                                  value: "title",
+                                                },
+                                              },
+                                            ],
                                           },
                                         },
                                       ],
@@ -1057,8 +1308,8 @@ export const ProjectCollectionQueryDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  ProjectCollectionQueryQuery,
-  ProjectCollectionQueryQueryVariables
+  ProjectListEntryQueryQuery,
+  ProjectListEntryQueryQueryVariables
 >;
 export const WorkshopGalleryQueryDocument = {
   kind: "Document",

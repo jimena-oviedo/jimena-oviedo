@@ -3,33 +3,38 @@ import { useMemo } from "react";
 import { FiYoutube } from "react-icons/fi";
 import Lightbox from "yet-another-react-lightbox";
 import Inline from "yet-another-react-lightbox/plugins/inline";
-import { Project, ProjectCollectionQueryDocument } from "../gql/graphql";
+import { Project, ProjectListEntryQueryDocument } from "../gql/graphql";
 import { slidesFromCollection, AssetCollection } from "../utils";
 
 gql`
-  query projectCollectionQuery {
-    projectCollection {
-      items {
-        sys {
-          id
-        }
-        title
-        job
-        costumeDesigner
-        director
-        production
-        distribution
-        youTubeTrailerLink
-        photoSlider {
-          slidesCollection {
-            total
-            skip
-            limit
-            items {
-              url
-              width
-              height
-              title
+  query projectListEntryQuery {
+    projectList(id: "4I3FbAncqpeEcqKTQ7o686") {
+      sys {
+        id
+      }
+      projectsCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          job
+          costumeDesigner
+          director
+          production
+          distribution
+          youTubeTrailerLink
+          photoSlider {
+            slidesCollection {
+              total
+              skip
+              limit
+              items {
+                url
+                width
+                height
+                title
+              }
             }
           }
         }
@@ -117,10 +122,10 @@ function ProjectCard({ project }: ProjectCardProps) {
 }
 
 export function ProjectsPage() {
-  const { data } = useQuery(ProjectCollectionQueryDocument);
+  const { data } = useQuery(ProjectListEntryQueryDocument);
   return (
     <section className="flex flex-col gap-14">
-      {data?.projectCollection?.items.map((project) =>
+      {data?.projectList?.projectsCollection?.items.map((project) =>
         project ? <ProjectCard key={project.sys.id} project={project} /> : null
       )}
     </section>
