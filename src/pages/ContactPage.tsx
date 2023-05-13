@@ -2,7 +2,7 @@ export function ContactPage() {
   return (
     <section className="px-32">
       <p className="pb-4">
-        Thank you for visiting my portfolio!I am a cinema costume breakdown
+        Thank you for visiting my portfolio! I am a cinema costume breakdown
         artist specializing in the art of aging and dyeing. As a breakdown
         artist, I meticulously recreate the effects of nature, use, time, and
         temperature on the layers of textiles and materials, producing authentic
