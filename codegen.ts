@@ -16,6 +16,9 @@ const config: CodegenConfig = {
   generates: {
     "src/gql/": {
       preset: "client",
+      config: {
+        avoidOptionals: true,
+      },
       plugins: [],
     },
     "./graphql.schema.json": {

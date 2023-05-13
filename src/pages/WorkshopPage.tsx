@@ -1,12 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import { useMemo, useState } from "react";
 import { HiSquare2Stack } from "react-icons/hi2";
-import { Lightbox, SlideImage } from "yet-another-react-lightbox";
-import {
-  WorkshopGalleryQueryDocument,
-  WorkshopPhotoGroup,
-} from "../gql/graphql";
-import { DeepOptional, slidesFromCollection } from "../utils";
+import { Lightbox } from "yet-another-react-lightbox";
+import { WorkshopGalleryQueryDocument } from "../gql/graphql";
+import { AssetCollection, slidesFromCollection } from "../utils";
 
 gql`
   query workshopGalleryQuery {
@@ -39,7 +36,7 @@ gql`
 `;
 
 interface LightboxImageProps {
-  slider: DeepOptional<WorkshopPhotoGroup>;
+  slider: { slidesCollection?: AssetCollection | null };
 }
 
 function LightboxImage({ slider }: LightboxImageProps) {

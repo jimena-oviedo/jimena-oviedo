@@ -1,12 +1,16 @@
 import { SlideImage } from "yet-another-react-lightbox/*";
-import { AssetCollection, Maybe } from "./gql/graphql";
 
-export type DeepOptional<T> = {
-  [K in keyof T]?: DeepOptional<T[K]> | null;
-};
+export interface AssetCollection {
+  items: ({
+    url: string | null;
+    width?: number | null;
+    height?: number | null;
+    title?: string | null;
+  } | null)[];
+}
 
 export function slidesFromCollection(
-  collection: DeepOptional<Maybe<AssetCollection | undefined>>
+  collection: AssetCollection | undefined | null
 ): SlideImage[] {
   const items =
     collection?.items?.filter(
