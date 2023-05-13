@@ -26,7 +26,10 @@ jobs:
         env:
           VITE_AUTHORIZATION_TOKEN: ${{ vars.VITE_AUTHORIZATION_TOKEN }}
           VITE_GRAPHQL_URL: ${{ vars.VITE_GRAPHQL_URL }}
-        run: yarn build
+        run: |
+          echo "Public auth token: $VITE_AUTHORIZATION_TOKEN"
+          echo "GraphQL URL: $VITE_GRAPHQL_URL"
+          yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
