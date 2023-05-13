@@ -17,6 +17,25 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      // https://github.com/rafgraph/spa-github-pages
+      (function (loc) {
+        if (loc.search[1] === "/") {
+          const decoded = loc.search
+            .slice(1)
+            .split("&")
+            .map(function (search) {
+              return search.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            loc.pathname.slice(0, -1) + decoded + loc.hash
+          );
+        }
+      })(window.location);
+    </script>
     
   </body>
 </html>
