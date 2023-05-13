@@ -48,7 +48,10 @@ function LightboxImage({ slider }: LightboxImageProps) {
   const first = slider.slidesCollection?.items?.[0];
 
   const slides = useMemo(() => {
-    return slidesFromCollection(slider?.slidesCollection, IMG_CAROUSEL_PARAMS);
+    return slidesFromCollection(slider?.slidesCollection, {
+      params: IMG_CAROUSEL_PARAMS,
+      imageFit: "contain",
+    });
   }, [slider]);
 
   if (!first || !first.url) return null;

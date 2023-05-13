@@ -47,7 +47,10 @@ const IMG_PARAMS = "?fit=pad&q=70&fm=jpg";
 
 function ProjectImage({ collection }: ProjectImageProps) {
   const slides = useMemo(() => {
-    return slidesFromCollection(collection, IMG_PARAMS);
+    return slidesFromCollection(collection, {
+      params: IMG_PARAMS,
+      imageFit: "cover",
+    });
   }, [collection]);
 
   return (

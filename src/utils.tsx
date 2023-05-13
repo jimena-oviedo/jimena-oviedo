@@ -11,7 +11,10 @@ export interface AssetCollection {
 
 export function slidesFromCollection(
   collection: AssetCollection | undefined | null,
-  params?: string
+  options?: {
+    params?: string;
+    imageFit?: SlideImage["imageFit"];
+  }
 ): SlideImage[] {
   const items =
     collection?.items?.filter(
@@ -25,10 +28,10 @@ export function slidesFromCollection(
       } => Boolean(slide && slide.url)
     ) ?? [];
   return items.map<SlideImage>((slide) => ({
-    src: `${slide.url}${params}`,
+    src: `${slide.url}${options?.params ?? ""}`,
     width: slide.width ?? undefined,
     height: slide.height ?? undefined,
     alt: slide.title,
-    imageFit: "cover",
+    imageFit: options?.imageFit,
   }));
 }
