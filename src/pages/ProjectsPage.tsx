@@ -49,7 +49,7 @@ interface ProjectImageProps {
 }
 
 // https://www.contentful.com/developers/docs/references/images-api
-const IMG_PARAMS = "?fit=pad&q=70&fm=jpg";
+const IMG_PARAMS = "?fm=webp&w=1200&fit=pad&q=90";
 
 function ProjectImage({ collection }: ProjectImageProps) {
   const slides = useMemo(() => {

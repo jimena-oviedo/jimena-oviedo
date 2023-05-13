@@ -41,8 +41,8 @@ interface LightboxImageProps {
 }
 
 // https://www.contentful.com/developers/docs/references/images-api
-const IMG_THUMBNAIL_PARAMS = "?w=300&h=300&fit=fill&q=60";
-const IMG_CAROUSEL_PARAMS = "?fm=jpg&q=80";
+const IMG_THUMBNAIL_PARAMS = "?fm=webp&w=400&h=400&fit=fill&q=80";
+const IMG_CAROUSEL_PARAMS = "?fm=webp&w=1400&q=80";
 
 function LightboxImage({ slider }: LightboxImageProps) {
   const [open, setOpen] = useState(false);
