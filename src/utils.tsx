@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SlideImage } from "yet-another-react-lightbox/*";
 
 export interface AssetCollection {
@@ -34,4 +36,24 @@ export function slidesFromCollection(
     alt: slide.title,
     imageFit: options?.imageFit,
   }));
+}
+
+export const APP_ROUTES = {
+  root: "/",
+  workshop: "/workshop",
+  contact: "/contact",
+};
+
+export function useHandleRedirectTo() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirectTo = searchParams.get("redirect_to");
+    if (redirectTo && Object.values(APP_ROUTES).includes(redirectTo)) {
+      navigate(redirectTo);
+    } else {
+      setSearchParams("");
+    }
+  }, [navigate, searchParams, setSearchParams]);
 }

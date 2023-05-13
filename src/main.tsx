@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ClientContextProvider } from "./api/Client";
 
 import { App } from "./App";
@@ -9,10 +9,11 @@ import "./index.css";
 import { ContactPage } from "./pages/ContactPage";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { WorkshopPage } from "./pages/WorkshopPage";
+import { APP_ROUTES } from "./utils";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
-    path: "/",
+    path: APP_ROUTES.root,
     element: <App />,
     children: [
       {
@@ -20,11 +21,11 @@ const router = createHashRouter([
         element: <ProjectsPage />,
       },
       {
-        path: "/workshop",
+        path: APP_ROUTES.workshop,
         element: <WorkshopPage />,
       },
       {
-        path: "/contact",
+        path: APP_ROUTES.contact,
         element: <ContactPage />,
       },
     ],

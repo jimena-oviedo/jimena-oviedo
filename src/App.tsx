@@ -6,8 +6,10 @@ import { Main } from "./layout/Main";
 import { Nav } from "./layout/Nav";
 
 import "yet-another-react-lightbox/styles.css";
+import { useHandleRedirectTo } from "./utils";
 
 export function App() {
+  useHandleRedirectTo();
   return (
     <Main>
       <Nav />
