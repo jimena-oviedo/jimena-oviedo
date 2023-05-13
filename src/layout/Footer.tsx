@@ -5,7 +5,7 @@ const EMAIL = "jimeoa@hotmail.com";
 
 export function Footer() {
   return (
-    <footer className="text-center pt-20 pb-36">
+    <footer className="text-center pt-12 pb-24 md:pt-20 md:pb-36">
       <p className="font-sans text-lg lg:text-xl font-bold leading-loose pb-1">
         Imprint
       </p>

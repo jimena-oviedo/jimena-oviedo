@@ -127,7 +127,7 @@ export function ProjectsPage() {
   if (loading) return <Loading />;
   if (error) return <pre className="text-red-600">{JSON.stringify(error, null, 2)}</pre>;
   return (
-    <section className="flex flex-col gap-14">
+    <section className="flex flex-col gap-10 md:gap-14">
       {data?.projectList?.projectsCollection?.items.map((project) =>
         project ? <ProjectCard key={project.sys.id} project={project} /> : null
       )}

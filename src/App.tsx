@@ -14,7 +14,7 @@ export function App() {
     <Main>
       <Nav />
       <Header />
-      <div className="py-4">
+      <div className="md:py-4">
         <Outlet />
       </div>
       <Footer />
