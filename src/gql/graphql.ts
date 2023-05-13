@@ -853,6 +853,44 @@ export type CfWorkshopPhotoGroupNestedFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
+export type ProjectCollectionQueryQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type ProjectCollectionQueryQuery = {
+  __typename?: "Query";
+  projectCollection?: {
+    __typename?: "ProjectCollection";
+    items: Array<{
+      __typename?: "Project";
+      title?: string | null;
+      job?: string | null;
+      costumeDesigner?: string | null;
+      director?: string | null;
+      production?: string | null;
+      distribution?: string | null;
+      youTubeTrailerLink?: string | null;
+      sys: { __typename?: "Sys"; id: string };
+      photoSlider?: {
+        __typename?: "WorkshopPhotoGroup";
+        slidesCollection?: {
+          __typename?: "AssetCollection";
+          total: number;
+          skip: number;
+          limit: number;
+          items: Array<{
+            __typename?: "Asset";
+            url?: string | null;
+            width?: number | null;
+            height?: number | null;
+            title?: string | null;
+          } | null>;
+        } | null;
+      } | null;
+    } | null>;
+  } | null;
+};
+
 export type WorkshopGalleryQueryQueryVariables = Exact<{
   [key: string]: never;
 }>;
@@ -887,6 +925,141 @@ export type WorkshopGalleryQueryQuery = {
   } | null;
 };
 
+export const ProjectCollectionQueryDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "projectCollectionQuery" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "projectCollection" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "items" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "sys" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                          ],
+                        },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "title" } },
+                      { kind: "Field", name: { kind: "Name", value: "job" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "costumeDesigner" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "director" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "production" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "distribution" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "youTubeTrailerLink" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "photoSlider" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "slidesCollection" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "total" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "skip" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "limit" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "items" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "url" },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "width",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "height",
+                                          },
+                                        },
+                                        {
+                                          kind: "Field",
+                                          name: {
+                                            kind: "Name",
+                                            value: "title",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ProjectCollectionQueryQuery,
+  ProjectCollectionQueryQueryVariables
+>;
 export const WorkshopGalleryQueryDocument = {
   kind: "Document",
   definitions: [

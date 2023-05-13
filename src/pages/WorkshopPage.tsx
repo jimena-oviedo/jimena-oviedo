@@ -6,6 +6,7 @@ import {
   WorkshopGalleryQueryDocument,
   WorkshopPhotoGroup,
 } from "../gql/graphql";
+import { DeepOptional, slidesFromCollection } from "../utils";
 
 gql`
   query workshopGalleryQuery {
@@ -37,10 +38,6 @@ gql`
   }
 `;
 
-type DeepOptional<T> = {
-  [K in keyof T]?: DeepOptional<T[K]> | null;
-};
-
 interface LightboxImageProps {
   slider: DeepOptional<WorkshopPhotoGroup>;
 }
@@ -50,16 +47,7 @@ function LightboxImage({ slider }: LightboxImageProps) {
   const first = slider.slidesCollection?.items?.[0];
 
   const slides = useMemo(() => {
-    const items =
-      slider.slidesCollection?.items?.filter(
-        (slide): slide is { url: string; width?: number; height?: number } =>
-          Boolean(slide && slide.url)
-      ) ?? [];
-    return items.map<SlideImage>((slide) => ({
-      src: slide.url,
-      width: slide.width ?? undefined,
-      height: slide.height ?? undefined,
-    }));
+    return slidesFromCollection(slider?.slidesCollection);
   }, [slider]);
 
   if (!first || !first.url) return null;

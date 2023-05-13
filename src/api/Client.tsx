@@ -3,7 +3,6 @@ import { PropsWithChildren, useMemo } from "react";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 export function ClientContextProvider({ children }: PropsWithChildren) {
-  console.log(import.meta.env);
   const client = useMemo(() => {
     return new ApolloClient({
       uri: import.meta.env.VITE_GRAPHQL_URL,
