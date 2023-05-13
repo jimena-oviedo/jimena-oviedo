@@ -12,7 +12,7 @@ export function App() {
     <Main>
       <Nav />
       <Header />
-      <div className="py-6">
+      <div className="py-4">
         <Outlet />
       </div>
       <Footer />
