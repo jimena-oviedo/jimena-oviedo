@@ -1061,6 +1061,7 @@ export type ProjectListEntryQueryQuery = {
         __typename?: "Project";
         title: string | null;
         job: string | null;
+        year: number | null;
         costumeDesigner: string | null;
         director: string | null;
         production: string | null;
@@ -1191,6 +1192,10 @@ export const ProjectListEntryQueryDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "job" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "year" },
                             },
                             {
                               kind: "Field",
