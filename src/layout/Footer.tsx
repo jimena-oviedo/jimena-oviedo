@@ -12,9 +12,7 @@ export function Footer() {
       <address className="font-serif not-italic text-gray-600 text-sm lg:text-base leading-normal">
         Jimena Oviedo Aucejo
         <br />
-        Wilhelmsaue 19
-        <br />
-        10715 Berlin
+        Berlin
         <br />
         <FiPhone className="inline" />{" "}
         <a className="hover:underline" href={`tel:${TELEPHONE}`}>
