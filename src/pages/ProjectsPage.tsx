@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { FiYoutube } from "react-icons/fi";
 import Lightbox from "yet-another-react-lightbox";
 import Inline from "yet-another-react-lightbox/plugins/inline";
+import { JsonDump } from "../components/JsonDump";
 import { Project, ProjectListEntryQueryDocument } from "../gql/graphql";
 import { slidesFromCollection, AssetCollection } from "../utils";
 import { Loading } from "./components/Loading";
@@ -124,8 +125,9 @@ function ProjectCard({ project }: ProjectCardProps) {
 
 export function ProjectsPage() {
   const { data, error, loading } = useQuery(ProjectListEntryQueryDocument);
+
   if (loading) return <Loading />;
-  if (error) return <pre className="text-red-600">{JSON.stringify(error, null, 2)}</pre>;
+  if (error) return <JsonDump error={error} />;
   return (
     <section className="flex flex-col gap-10 md:gap-14">
       {data?.projectList?.projectsCollection?.items.map((project) =>

@@ -1,9 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { HiSquare2Stack } from "react-icons/hi2";
-import { Lightbox } from "yet-another-react-lightbox";
+import { Lightbox, SlideImage } from "yet-another-react-lightbox";
+import { JsonDump } from "../components/JsonDump";
 import { WorkshopGalleryQueryDocument } from "../gql/graphql";
-import { AssetCollection, slidesFromCollection } from "../utils";
+import { slidesFromCollection } from "../utils";
 import { Loading } from "./components/Loading";
 
 gql`
@@ -37,42 +38,71 @@ gql`
 `;
 
 interface LightboxImageProps {
-  slider: { slidesCollection?: AssetCollection | null };
+  slide: SlideImage;
+  onClick: () => void;
+  hasMore: boolean;
 }
 
 // https://www.contentful.com/developers/docs/references/images-api
 const IMG_THUMBNAIL_PARAMS = "?fm=webp&w=400&h=400&fit=fill&q=80";
 const IMG_CAROUSEL_PARAMS = "?fm=webp&w=1400&q=80";
 
-function LightboxImage({ slider }: LightboxImageProps) {
+function LightboxImage({ slide, onClick, hasMore }: LightboxImageProps) {
+  return (
+    <figure
+      className="basis-1/3 cursor-pointer relative max-w-xs overflow-hidden bg-cover bg-no-repeat aspect-square"
+      onClick={onClick}
+    >
+      <img
+        className="block h-full w-full object-cover object-center"
+        src={`${slide.src}${IMG_THUMBNAIL_PARAMS}`}
+        width={slide.width ?? undefined}
+        height={slide.height ?? undefined}
+      />
+      <div className="absolute bottom-0 left-0 h-full w-full bg-black bg-opacity-20 overflow-hidden opacity-0 hover:opacity-100"></div>
+      {hasMore && (
+        <HiSquare2Stack className="absolute text-base top-0 right-0 text-white drop-shadow m-1" />
+      )}
+    </figure>
+  );
+}
+
+export function WorkshopPage() {
+  const { data, error, loading } = useQuery(WorkshopGalleryQueryDocument);
+
   const [open, setOpen] = useState(false);
-  const first = slider.slidesCollection?.items?.[0];
+  const [index, setIndex] = useState(0);
 
   const slides = useMemo(() => {
-    return slidesFromCollection(slider?.slidesCollection, {
-      params: IMG_CAROUSEL_PARAMS,
-      imageFit: "contain",
-    });
-  }, [slider]);
+    const items = data?.gallery?.photoSlidersCollection?.items ?? [];
+    return items.flatMap((item) =>
+      slidesFromCollection(item?.slidesCollection, {
+        params: IMG_CAROUSEL_PARAMS,
+        imageFit: "contain",
+      })
+    );
+  }, [data]);
 
-  if (!first || !first.url) return null;
+  const onClickImage = useCallback((index: number) => {
+    setOpen(true);
+    setIndex(index);
+  }, []);
+
+  if (loading) return <Loading />;
+  if (error) return <JsonDump error={error} />;
   return (
-    <>
-      <figure
-        className="basis-1/3 cursor-pointer relative max-w-xs overflow-hidden bg-cover bg-no-repeat aspect-square"
-        onClick={() => setOpen(true)}
-      >
-        <img
-          className="block h-full w-full object-cover object-center"
-          src={`${first.url}${IMG_THUMBNAIL_PARAMS}`}
-          width={first.width ?? undefined}
-          height={first.height ?? undefined}
-        />
-        <div className="absolute bottom-0 left-0 h-full w-full bg-black bg-opacity-20 overflow-hidden opacity-0 hover:opacity-100"></div>
-        {slides.length > 1 && (
-          <HiSquare2Stack className="absolute text-base top-0 right-0 text-white drop-shadow m-1" />
-        )}
-      </figure>
+    <section className="grid grid-cols-3 gap-4">
+      {slides
+        .map((slide, index) => ({ ...slide, index }))
+        .filter((slide) => slide.isFirst)
+        .map((slide) => (
+          <LightboxImage
+            key={slide.src}
+            slide={slide}
+            onClick={() => onClickImage(slide.index)}
+            hasMore={slide.hasMore}
+          />
+        ))}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
@@ -80,21 +110,8 @@ function LightboxImage({ slider }: LightboxImageProps) {
         controller={{ closeOnBackdropClick: true }}
         animation={{ swipe: 300 }}
         slides={slides}
+        index={index}
       />
-    </>
-  );
-}
-
-export function WorkshopPage() {
-  const { data, error, loading } = useQuery(WorkshopGalleryQueryDocument);
-  if (loading) return <Loading />;
-  if (error)
-    return <pre className="text-red-600">{JSON.stringify(error, null, 2)}</pre>;
-  return (
-    <section className="grid grid-cols-3 gap-4">
-      {data?.gallery?.photoSlidersCollection?.items.map((slider) =>
-        slider ? <LightboxImage key={slider.sys.id} slider={slider} /> : null
-      )}
     </section>
   );
 }

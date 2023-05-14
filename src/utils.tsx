@@ -17,7 +17,7 @@ export function slidesFromCollection(
     params?: string;
     imageFit?: SlideImage["imageFit"];
   }
-): SlideImage[] {
+): (SlideImage & { isFirst: boolean; hasMore: boolean })[] {
   const items =
     collection?.items?.filter(
       (
@@ -29,13 +29,19 @@ export function slidesFromCollection(
         title?: string;
       } => Boolean(slide && slide.url)
     ) ?? [];
-  return items.map<SlideImage>((slide) => ({
-    src: `${slide.url}${options?.params ?? ""}`,
-    width: slide.width ?? undefined,
-    height: slide.height ?? undefined,
-    alt: slide.title,
-    imageFit: options?.imageFit,
-  }));
+  return items
+    .map<SlideImage>((slide) => ({
+      src: `${slide.url}${options?.params ?? ""}`,
+      width: slide.width ?? undefined,
+      height: slide.height ?? undefined,
+      alt: slide.title,
+      imageFit: options?.imageFit,
+    }))
+    .map((slide, index, collection) => ({
+      ...slide,
+      isFirst: index == 0,
+      hasMore: collection.length > 1,
+    }));
 }
 
 export const APP_ROUTES = {
