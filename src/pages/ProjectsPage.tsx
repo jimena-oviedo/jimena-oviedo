@@ -21,7 +21,6 @@ gql`
           }
           title
           job
-          year
           costumeDesigner
           director
           production
@@ -82,7 +81,6 @@ interface ProjectCardProps {
     Project,
     | "title"
     | "job"
-    | "year"
     | "costumeDesigner"
     | "director"
     | "production"
@@ -97,8 +95,7 @@ function ProjectCard({ project }: ProjectCardProps) {
       <ProjectImage collection={project.photoSlider?.slidesCollection} />
       <aside className="mt-1 sm:mt-1 lg:mt-3">
         <h2 className="font-sans text-lg lg:text-xl pb-1 lg:pb-2 font-bold leading-normal">
-          {project.title} {project.year && <>({project.year})</>} —{" "}
-          {project.job}
+          {project.title}—{project.job}
         </h2>
         <div className="text-gray-600 text-sm lg:text-base leading-normal">
           {project.costumeDesigner && (
