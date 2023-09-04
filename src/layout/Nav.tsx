@@ -21,7 +21,7 @@ function NavLink({
 
 export function Nav() {
   return (
-    <nav className="font-serif flex justify-center align-center text-sm md:text-lg mt-6 mb-2 text-gray-600">
+    <nav className="font-serif flex justify-center align-center text-md md:text-lg mt-6 mb-3 text-gray-600">
       <ul className="list-none flex gap-3">
         <li>
           <NavLink to="/">Projects</NavLink>
