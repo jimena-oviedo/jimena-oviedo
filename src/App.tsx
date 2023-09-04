@@ -12,8 +12,8 @@ export function App() {
   useHandleRedirectTo();
   return (
     <Main>
-      <Nav />
       <Header />
+      <Nav />
       <div className="md:py-4">
         <Outlet />
       </div>
