@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useCallback, useMemo, useState } from "react";
 import { HiSquare2Stack } from "react-icons/hi2";
 import { Lightbox, SlideImage } from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import { JsonDump } from "../components/JsonDump";
 import { WorkshopGalleryQueryDocument } from "../gql/graphql";
 import { slidesFromCollection } from "../utils";
@@ -111,6 +112,11 @@ export function WorkshopPage() {
         animation={{ swipe: 300 }}
         slides={slides}
         index={index}
+        plugins={[Zoom]}
+        render={{
+          iconZoomIn: () => null,
+          iconZoomOut: () => null,
+        }}
       />
     </section>
   );
