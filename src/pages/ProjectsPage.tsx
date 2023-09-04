@@ -108,12 +108,12 @@ function ProjectCard({ project }: ProjectCardProps) {
             <p>
               <FiYoutube className="inline" />{" "}
               <a
-                className="hover:underline"
+                className="underline hover:font-bold"
                 href={project.youTubeTrailerLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Trailer
+                Watch the trailer
               </a>
             </p>
           )}
